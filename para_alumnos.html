@@ -50,7 +50,7 @@
 				<label for="camposelector">Selector</label>
 				<input type="Text" name="camposelector" id="camposelector" class="form-control">
 			</div>
-			<input type="button" id="boton" value="Ejecutar Selector" class="btn btn-warning btn-sm">
+			<input type="button" id="boton" value="Ejecutar Selector" class="btn btn-warning btn-sm" onclick="ejecutarSelector()">
 		</form>
 		<div class="row">
 			<div class="col-md-6">
@@ -64,7 +64,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 	</div>
 
 	<div class="col-md-8">
@@ -113,6 +113,32 @@
 
 <script>
 	// Agregar las instrucciones JS para resolver el ejercicio aquí.
+	function ejecutarSelector() {
+		var value = $('#camposelector').val();
+		if(value == ''){
+			alert('Debe ingresar un selector jQuery!');
+		}else{
+			var selection;
+			try {
+				selection = eval(value);
+			} catch (e) {
+				selection = null;
+				limpiarCampo();
+			}
+			if (selection instanceof jQuery){
+				$('.col-md-8>*').fadeOut();
+				selection.fadeIn();
+				console.log(selection);
+				$('.historial').append(value+'<br>');
+				$('.seleccionados').append(selection.length+'<br>');
+			}
+			limpiarCampo();
+		}
+	}
+
+	function limpiarCampo() {
+		$('#camposelector').val('');
+	}
 </script>
 
 </body>
